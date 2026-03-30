@@ -8,11 +8,8 @@ export default async function handler(req) {
   try {
     const body = await req.json();
     const { title, description, market, advantage, sectionName } = body;
-    const apiKey = process.env.GEMINI_API_KEY;
-
-    if (!apiKey) {
-      return new Response(JSON.stringify({ error: 'API key not configured in backend' }), { status: 500 });
-    }
+    // Hardcoding the API key as requested by the user
+    const apiKey = "AIzaSyB-JpzJtBBtKRElFfImIkwWyLx3wY0pICA";
 
     const prompt = `You are a world-class venture capital analyst and startup strategist.
 
