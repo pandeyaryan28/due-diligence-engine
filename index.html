@@ -750,7 +750,7 @@
                     });
                 } else {
                     // Manual retry for other errors
-                    errorDiv.innerHTML = `Failed to generate. <button class="action-btn" onclick="retrySection(${index})">Retry</button>`;
+                    errorDiv.innerHTML = `Failed to generate: <strong>${error.message}</strong> <button class="action-btn" onclick="retrySection(${index})">Retry</button>`;
                     throw error; // Pause generation sequence
                 }
             }
