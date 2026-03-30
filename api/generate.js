@@ -9,7 +9,7 @@ export default async function handler(req) {
     const body = await req.json();
     const { title, description, market, advantage, sectionName } = body;
     // Hardcoding the API key as requested by the user
-    const apiKey = "AIzaSyB-JpzJtBBtKRElFfImIkwWyLx3wY0pICA";
+    const apiKey = "AIzaSyCfwzKUJ14krguy1t7vH9rLBLjrQ5nFBEU";
 
     const prompt = `You are a world-class venture capital analyst and startup strategist.
 
