@@ -618,6 +618,11 @@
             for (let i = 0; i < SECTIONS.length; i++) {
                 if (!isGenerating) break; // Allow abort mechanism if needed
                 
+                if (i > 0) {
+                    // Add 3s delay between calls to avoid Gemini Free Tier burst limits
+                    await new Promise(resolve => setTimeout(resolve, 3000));
+                }
+                
                 await processSection(i);
                 updateProgress(i + 1);
             }
@@ -729,9 +734,9 @@
                 errorDiv.classList.remove('hidden');
 
                 if (error.status === 429) {
-                    // Auto-retry with countdown
-                    errorDiv.innerHTML = `Rate limited! Retrying in <span id="countdown-${index}">5</span>s...`;
-                    let timeLeft = 5;
+                    // Auto-retry with extended cooldown for free-tier limits
+                    errorDiv.innerHTML = `Google Free Tier Limit! Cooling down for <span id="countdown-${index}">15</span>s...`;
+                    let timeLeft = 15;
                     
                     return new Promise((resolve, reject) => {
                         const timer = setInterval(() => {
@@ -765,6 +770,9 @@
                     isGenerating = true;
                     for (let i = index + 1; i < SECTIONS.length; i++) {
                         if (!isGenerating) break;
+                        
+                        await new Promise(resolve => setTimeout(resolve, 3000)); // 3s throttle
+
                         await processSection(i);
                         updateProgress(i + 1);
                     }
